@@ -38,12 +38,9 @@ public class AddressService {
         });
     }
 
-    private Address findEntity(Long id, Address address){
-        return addressRepository.findIdAndAddress(address, id).orElseThrow(()->new EntityNotFoundException(Address.class,id));
-    }
 
     public void delete(Long id, Address address){
-        Address entity =findEntity(id, address);
+        Address entity =findOne(address, id);
         addressRepository.delete(entity);
     }
 

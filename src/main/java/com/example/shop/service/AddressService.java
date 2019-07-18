@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,12 +17,20 @@ public class AddressService {
     private final AddressRepository addressRepository;
 
 
-    public Address findOne(Address address, Long id){
+    public Address find(Address address, Long id){
         return addressRepository.findIdAndAddress(address, id)
                 .orElseThrow(()->new EntityNotFoundException(Address.class, id));
     }
 
-    public Iterable<Address>findAll(){
+    public Address findOne(Long id){
+        return addressRepository.findById(id)
+                .orElseThrow(()->new EntityNotFoundException(Address.class, id));
+    }
+    public Address findOne(Address address) {
+            return findOne(address.getId());
+    }
+
+    public List<Address> findAll(){
         return addressRepository.findAll();
     }
 
@@ -38,11 +47,11 @@ public class AddressService {
         });
     }
 
-
     public void delete(Long id, Address address){
-        Address entity =findOne(address, id);
+        Address entity =find(address, id);
         addressRepository.delete(entity);
     }
+
 
 
 }

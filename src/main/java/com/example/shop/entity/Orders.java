@@ -41,5 +41,5 @@ public class Orders {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @Column(name = "game_id")
-    private Collection<Game> books = new ArrayList<Game>();
+    private Collection<Game> games = new ArrayList<Game>();
 }
